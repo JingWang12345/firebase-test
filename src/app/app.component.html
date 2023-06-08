@@ -1,0 +1,11 @@
+<header>
+  <h1>Super Manga</h1>
+  <button (click)="auth.signIn()" >sign in</button>
+</header>
+<main>
+  <div *ngFor="let manga of mangas">
+<span><strong>{{manga.title}}</strong></span>
+<span>year: {{manga.year}}</span>
+<span>{{manga.isEnded ? "concluso" : "in corso"}}</span>
+  </div>
+</main>
