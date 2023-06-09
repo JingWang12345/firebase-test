@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FirebaseService } from '../firebase/firebase.service';
-import { Auth, getAuth, onAuthStateChanged, signInWithPopup } from "firebase/auth";
+import { Auth, getAuth, onAuthStateChanged, signInWithPopup, signOut } from "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
 import { Subject } from 'rxjs';
 
@@ -12,8 +12,9 @@ auth: Auth;
 
 provider!: GoogleAuthProvider;
 
-user: Subject<any> = new Subject();
-  userSubject: any;
+userSubject: Subject<any> = new Subject();
+
+
 
   constructor(private firebase: FirebaseService) {
     this.auth = getAuth(this.firebase.app)
@@ -33,6 +34,7 @@ user: Subject<any> = new Subject();
         // User is signed out
         // ...
         console.log('nessuno è loggato');
+        this.userSubject.next(null);
 
       }
     });
@@ -63,6 +65,12 @@ signIn(){
     // const credential = GoogleAuthProvider.credentialFromError(error);
     // ...
   });
+}
+
+
+signOut() {
+  signOut(this.auth).then(result => console.log(result)
+  )
 }
 
 }
